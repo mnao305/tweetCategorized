@@ -1,6 +1,7 @@
 <template>
   <v-footer
     app
+    absolute
     class="pa-3">
     &copy; tweetCategorized
     <v-spacer />
