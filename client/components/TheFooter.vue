@@ -10,6 +10,6 @@
       target="_blank">GitHub</a>
     <a
       href="https://twitter.com/mnao_305"
-      target="_blank">Twetter</a>
+      target="_blank">Twitter</a>
   </v-footer>
 </template>
