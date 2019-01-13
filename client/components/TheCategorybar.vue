@@ -4,43 +4,45 @@
     clipped
     mobile-break-point="900"
     app>
-    <v-list>
-      <template v-for="(item, index) in items">
-        <v-list-tile
-          :key="index"
-          ripple
-          @click="$router.push(`/dashboard/${item.id}`)">
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>{{ item.count }}</v-list-tile-action>
-          <v-list-tile-action>
-            <v-menu
-              open-on-hover
-              offset-y>
-              <v-btn
-                slot="activator"
-                icon
-              >
-                <v-icon color="grey lighten-1">add_circle</v-icon>
-              </v-btn>
-              <v-list>
-                <v-list-tile @click="$router.push(`/dashboard/add/fav`)">
-                  <v-list-tile-title>いいねから追加</v-list-tile-title>
-                </v-list-tile>
-                <v-list-tile @click="$router.push(`/dashboard/add/url`)">
-                  <v-list-tile-title>URLから追加</v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-          </v-list-tile-action>
-        </v-list-tile>
-        <v-divider
-          :key="`divider-${index}`"
-          dark />
-      </template>
-    </v-list>
+    <no-ssr>
+      <v-list>
+        <template v-for="(item, index) in items">
+          <v-list-tile
+            :key="index"
+            ripple
+            @click="$router.push(`/dashboard/${item.id}`)">
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              <v-list-tile-sub-title v-if="item.description">{{ item.description }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+            <v-list-tile-action>{{ item.count }}</v-list-tile-action>
+            <v-list-tile-action>
+              <v-menu
+                open-on-hover
+                offset-y>
+                <v-btn
+                  slot="activator"
+                  icon
+                >
+                  <v-icon color="grey lighten-1">add_circle</v-icon>
+                </v-btn>
+                <v-list>
+                  <v-list-tile @click="$router.push(`/dashboard/add/fav`)">
+                    <v-list-tile-title>いいねから追加</v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="$router.push(`/dashboard/add/url`)">
+                    <v-list-tile-title>URLから追加</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-list-tile-action>
+          </v-list-tile>
+          <v-divider
+            :key="`divider-${index}`"
+            dark />
+        </template>
+      </v-list>
+    </no-ssr>
     <div class="text-xs-center">
       <v-menu
         open-on-hover
