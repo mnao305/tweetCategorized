@@ -53,10 +53,10 @@
           <v-icon color="grey lighten-1">add_circle</v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile>
+          <v-list-tile @click="$router.push(`/dashboard/add/fav`)">
             <v-list-tile-title>いいねから追加</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile>
+          <v-list-tile @click="$router.push(`/dashboard/add/url`)">
             <v-list-tile-title>URLから追加</v-list-tile-title>
           </v-list-tile>
         </v-list>
