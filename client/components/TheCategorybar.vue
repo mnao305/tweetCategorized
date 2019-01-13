@@ -8,7 +8,8 @@
       <template v-for="(item, index) in items">
         <v-list-tile
           :key="index"
-          ripple>
+          ripple
+          @click="$router.push(`/dashboard/${item.id}`)">
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
@@ -69,26 +70,31 @@ export default {
       // テスト用
       items: [
         {
+          id: 0,
           title: 'メチャシコ',
           count: 100,
           description: 'えちえちのえち'
         },
         {
+          id: 1,
           title: '有能',
           count: 25,
           description: ''
         },
         {
+          id: 2,
           title: '後で見る',
           count: 1,
           description: ''
         },
         {
+          id: 3,
           title: '参考メモ',
           count: 12,
           description: '技術系のもの'
         },
         {
+          id: 4,
           title: '面白い',
           count: 6,
           description: ''
