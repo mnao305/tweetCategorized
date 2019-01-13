@@ -2,6 +2,7 @@
   <v-navigation-drawer
     v-model="drawer"
     clipped
+    mobile-break-point="900"
     app>
     <v-list>
       <template v-for="(item, index) in items">
