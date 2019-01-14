@@ -84,8 +84,9 @@ export default {
   methods: {
     async addCategorySubmit() {
       if (this.$refs.form.validate()) {
-        let newCategory = {
-          id: this.categorys.length,
+        const nextID = this.categorys[this.categorys.length - 1].id + 1
+        const newCategory = {
+          id: nextID,
           title: this.title,
           description: this.description,
           count: 0
