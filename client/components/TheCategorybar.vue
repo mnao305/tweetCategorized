@@ -44,7 +44,54 @@
       </v-list>
     </no-ssr>
     <div class="text-xs-center">
-      <!--  -->
+      <v-dialog
+        v-model="dialog"
+        persistent
+        max-width="600px">
+        <v-btn slot="activator">
+          Add Category
+        </v-btn>
+        <v-card>
+          <v-card-title>
+            <span class="headline">
+              Add Category
+            </span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex xs12>
+                  <v-text-field
+                    :counter="10"
+                    v-model="title"
+                    label="Title"
+                    required />
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    v-model="description"
+                    :counter="30"
+                    label="description" />
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer/>
+            <v-btn
+              @click="dialog = false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="success"
+              @click="dialog = false"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </v-navigation-drawer>
 </template>
@@ -85,7 +132,10 @@ export default {
           count: 6,
           description: ''
         }
-      ]
+      ],
+      dialog: false,
+      title: '',
+      description: ''
     }
   },
   computed: {
