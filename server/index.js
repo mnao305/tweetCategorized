@@ -32,3 +32,6 @@ async function start() {
   })
 }
 start()
+
+// API用のルーティング
+app.use('/api/', require('./api/index'))
