@@ -57,39 +57,48 @@
               Add Category
             </span>
           </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12>
-                  <v-text-field
-                    :counter="10"
-                    v-model="title"
-                    label="Title"
-                    required />
-                </v-flex>
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="description"
-                    :counter="30"
-                    label="description" />
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer/>
-            <v-btn
-              @click="dialog = false"
-            >
-              Close
-            </v-btn>
-            <v-btn
-              color="success"
-              @click="dialog = false"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12>
+                    <v-text-field
+                      :counter="10"
+                      v-model="title"
+                      :rules="titleRules"
+                      label="Title"
+                      required />
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field
+                      v-model="description"
+                      :rules="descriptionRules"
+                      :counter="30"
+                      label="Description" />
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn
+                @click="dialog = false"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                :disabled="!valid"
+                color="success"
+                @click="addCategory"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-dialog>
     </div>
@@ -135,7 +144,16 @@ export default {
       ],
       dialog: false,
       title: '',
-      description: ''
+      description: '',
+      titleRules: [
+        v => !!v || 'Title is required',
+        v => (v && v.length <= 10) || 'Title must be less than 10 characters'
+      ],
+      descriptionRules: [
+        v =>
+          `${v}`.length <= 30 || 'Description must be less than 30 characters'
+      ],
+      valid: true
     }
   },
   computed: {
@@ -145,6 +163,21 @@ export default {
       },
       set(val) {
         this.$store.commit('categorybar/toggleFlag', val)
+      }
+    }
+  },
+  methods: {
+    addCategory() {
+      if (this.$refs.form.validate()) {
+        let obj = {
+          id: this.items.length,
+          title: this.title,
+          description: this.description,
+          count: 0
+        }
+        this.items.push(obj)
+        this.dialog = false
+        this.$refs.form.reset()
       }
     }
   }
