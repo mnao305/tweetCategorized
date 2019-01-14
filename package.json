@@ -17,6 +17,7 @@
     "cross-env": "^5.2.0",
     "express": "^4.16.3",
     "nuxt": "^2.0.0",
+    "vue-masonry": "^0.11.7",
     "vue-tweet-embed": "^2.1.2",
     "vuetify": "^1.2.4"
   },
