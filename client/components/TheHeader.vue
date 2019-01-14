@@ -4,7 +4,7 @@
     app>
     <v-toolbar-side-icon
       v-if="$route.path !== '/'"
-      @click="$store.commit('categorybar/toggleFlag', !$store.state.categorybar.flag)"/>
+      @click="$store.commit('categorys/toggleFlag', !$store.state.categorys.flag)"/>
     <v-toolbar-title>tweetCategorized</v-toolbar-title>
     <v-spacer />
     <v-btn icon>

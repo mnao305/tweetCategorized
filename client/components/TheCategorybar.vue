@@ -6,16 +6,16 @@
     app>
     <no-ssr>
       <v-list>
-        <template v-for="(item, index) in items">
+        <template v-for="(category, index) in categorys">
           <v-list-tile
             :key="index"
             ripple
-            @click="$router.push(`/dashboard/${item.id}`)">
+            @click="$router.push(`/dashboard/${category.id}`)">
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              <v-list-tile-sub-title v-if="item.description">{{ item.description }}</v-list-tile-sub-title>
+              <v-list-tile-title>{{ category.title }}</v-list-tile-title>
+              <v-list-tile-sub-title v-if="category.description">{{ category.description }}</v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-list-tile-action>{{ item.count }}</v-list-tile-action>
+            <v-list-tile-action>{{ category.count }}</v-list-tile-action>
             <v-list-tile-action>
               <v-menu
                 open-on-hover
@@ -93,7 +93,7 @@
               <v-btn
                 :disabled="!valid"
                 color="success"
-                @click="addCategory"
+                @click="addCategorySubmit"
               >
                 Save
               </v-btn>
@@ -106,42 +106,12 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   data() {
     return {
       // テスト用
-      items: [
-        {
-          id: 0,
-          title: 'メチャシコ',
-          count: 100,
-          description: 'えちえちのえち'
-        },
-        {
-          id: 1,
-          title: '有能',
-          count: 25,
-          description: ''
-        },
-        {
-          id: 2,
-          title: '後で見る',
-          count: 1,
-          description: ''
-        },
-        {
-          id: 3,
-          title: '参考メモ',
-          count: 12,
-          description: '技術系のもの'
-        },
-        {
-          id: 4,
-          title: '面白い',
-          count: 6,
-          description: ''
-        }
-      ],
       dialog: false,
       title: '',
       description: '',
@@ -159,27 +129,29 @@ export default {
   computed: {
     drawer: {
       get() {
-        return this.$store.state.categorybar.flag
+        return this.$store.state.categorys.flag
       },
       set(val) {
-        this.$store.commit('categorybar/toggleFlag', val)
+        this.$store.commit('categorys/toggleFlag', val)
       }
-    }
+    },
+    ...mapGetters('categorys', ['categorys'])
   },
   methods: {
-    addCategory() {
+    async addCategorySubmit() {
       if (this.$refs.form.validate()) {
-        let obj = {
-          id: this.items.length,
+        let newCategory = {
+          id: this.categorys.length,
           title: this.title,
           description: this.description,
           count: 0
         }
-        this.items.push(obj)
+        await this.addCategory({ newCategory })
         this.dialog = false
         this.$refs.form.reset()
       }
-    }
+    },
+    ...mapActions('categorys', ['addCategory'])
   }
 }
 </script>
