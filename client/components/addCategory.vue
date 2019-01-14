@@ -1,0 +1,101 @@
+<template>
+  <v-dialog
+    v-model="dialog"
+    persistent
+    max-width="600px">
+    <v-btn slot="activator">
+      Add Category
+    </v-btn>
+    <v-card>
+      <v-card-title>
+        <span class="headline">
+          Add Category
+        </span>
+      </v-card-title>
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field
+                  :counter="10"
+                  v-model="title"
+                  :rules="titleRules"
+                  label="Title"
+                  required />
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="description"
+                  :rules="descriptionRules"
+                  :counter="30"
+                  label="Description" />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            :disabled="!valid"
+            color="success"
+            @click="addCategorySubmit"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+  data() {
+    return {
+      dialog: false,
+      title: '',
+      description: '',
+      titleRules: [
+        v => !!v || 'Title is required',
+        v => (v && v.length <= 10) || 'Title must be less than 10 characters'
+      ],
+      descriptionRules: [
+        v =>
+          `${v}`.length <= 30 || 'Description must be less than 30 characters'
+      ],
+      valid: true
+    }
+  },
+  computed: {
+    ...mapGetters('categorys', ['categorys'])
+  },
+  methods: {
+    async addCategorySubmit() {
+      if (this.$refs.form.validate()) {
+        let newCategory = {
+          id: this.categorys.length,
+          title: this.title,
+          description: this.description,
+          count: 0
+        }
+        await this.addCategory({ newCategory })
+        this.dialog = false
+        this.$refs.form.reset()
+      }
+    },
+    ...mapActions('categorys', ['addCategory'])
+  }
+}
+</script>
