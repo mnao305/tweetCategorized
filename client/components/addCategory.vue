@@ -69,7 +69,8 @@ export default {
       description: '',
       titleRules: [
         v => !!v || 'Title is required',
-        v => (v && v.length <= 10) || 'Title must be less than 10 characters'
+        v => (v && v.length <= 10) || 'Title must be less than 10 characters',
+        v => (v && !this.categorys.some(this.duplicateCheck)) || 'Duplicate'
       ],
       descriptionRules: [
         v =>
@@ -96,6 +97,9 @@ export default {
         this.dialog = false
         this.$refs.addCategoryForm.reset()
       }
+    },
+    duplicateCheck(e) {
+      return e.title === this.title
     },
     ...mapActions('categorys', ['addCategory'])
   }
