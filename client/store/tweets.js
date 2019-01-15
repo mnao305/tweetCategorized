@@ -16,10 +16,6 @@ export const state = () => ({
         description: 'hoigehoge'
       },
       {
-        id: '1084378745568354304',
-        description: 'hoigehoge'
-      },
-      {
         id: '1084367818198474752',
         description: 'hoigehoge'
       },
@@ -43,10 +39,6 @@ export const state = () => ({
       },
       {
         id: '1083332271292235776',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1084378745568354304',
         description: 'hoigehoge'
       },
       {
