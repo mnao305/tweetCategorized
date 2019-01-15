@@ -75,7 +75,10 @@ export default {
         v => !!v || 'Title is required',
         v => (v && v.length <= 100) || 'URL must be less than 70 characters',
         v =>
-          (v && RegExp('https://twitter.com/.+/status/[0~1]+', 'i').test(v)) ||
+          (v &&
+            RegExp('^https://twitter.com/[a-z0-9_]+/status/[0-9]+$', 'i').test(
+              v
+            )) ||
           'URL must be valid(https://twitter.com/userID/status/TweetID)'
       ],
       descriptionRules: [
