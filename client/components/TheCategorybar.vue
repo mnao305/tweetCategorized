@@ -30,7 +30,7 @@
                   <v-list-tile @click="$router.push(`/dashboard/add/fav`)">
                     <v-list-tile-title>いいねから追加</v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile @click="fromCategory = category.title;flag = true">
+                  <v-list-tile @click="fromCategory = category;flag = true">
                     <v-list-tile-title>URLから追加</v-list-tile-title>
                   </v-list-tile>
                 </v-list>

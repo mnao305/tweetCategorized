@@ -74,8 +74,8 @@ export const mutations = {
   changeFromCatagory(state, fromCategory) {
     state.fromCategory = fromCategory
   },
-  pushTweet(state, { newTweet, toCategoryID }) {
-    state.tweets[toCategoryID].tweet.push(newTweet)
+  pushTweet(state, { newTweet, toCategory }) {
+    state.tweets[toCategory.id].tweet.push(newTweet)
   },
   pushCategory(state, { payload }) {
     state.tweets.push(payload)
@@ -83,9 +83,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async addTweet({ commit }, { newTweet, toCategoryID }) {
+  async addTweet({ commit }, { newTweet, toCategory }) {
     // TODO:データ保存処理
-    commit('pushTweet', { newTweet, toCategoryID })
+    commit('pushTweet', { newTweet, toCategory })
   },
   async addCategory({ commit, state }) {
     const payload = {

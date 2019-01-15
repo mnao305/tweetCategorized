@@ -85,7 +85,7 @@ export default {
       valid: true,
       tweetCheckFlag: true,
       URLRules: [
-        v => !!v || 'Title is required',
+        v => !!v || 'URL is required',
         v => (v && v.length <= 100) || 'URL must be less than 70 characters',
         v =>
           (v &&
@@ -127,13 +127,8 @@ export default {
           id: tweetID,
           description: this.description
         }
-        // タイトルからカテゴリ配列の添字を取得
-        let toCategory = this.categorys.filter((item, index) => {
-          if (item.title === this.toCategory) return true
-        })
-        const toCategoryID = this.categorys.indexOf(toCategory[0])
-
-        await this.addTweet({ newTweet, toCategoryID })
+        const toCategory = this.toCategory
+        await this.addTweet({ newTweet, toCategory })
         this.flag = false
         this.$refs.addTweetForm.reset()
         // 追加すると表示が崩れるのでMasonry再draw
