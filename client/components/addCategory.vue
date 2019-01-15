@@ -92,6 +92,7 @@ export default {
           count: 0
         }
         await this.addCategory({ newCategory })
+        this.$store.commit('tweets/addCategory')
         this.dialog = false
         this.$refs.addCategoryForm.reset()
       }

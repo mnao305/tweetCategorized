@@ -7,10 +7,10 @@
       class="masonry-container">
       <div
         v-masonry-tile
-        v-for="(tw, index) in tweets"
+        v-for="(tw, index) in tweets[$route.params.id]"
         :key="index"
         class="item">
-        <Tweet :id="tw" />
+        <Tweet :id="tw.id" />
       </div>
     </div>
   </div>
@@ -18,31 +18,23 @@
 
 <script>
 import { Tweet } from 'vue-tweet-embed'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     Tweet
   },
-  async asyncData() {
-    return {
-      // テストデータ
-      tweets: [
-        '1084378745568354304',
-        '1072787982413754368',
-        '1083332271292235776',
-        '1083320027539894272',
-        '1083602018294411266',
-        '1084367818198474752',
-        '1084363838907019266',
-        '1079307918401368064'
-      ]
-    }
+  async asyncData({ store }) {
+    // await store.dispatch('tweets')
+  },
+  computed: {
+    ...mapGetters('tweets', ['tweets'])
   },
   mounted() {
     // 一回だけじゃ上手くいかないことがあったのでそれ用の対応
     let loadFlag = 0
     const intervalID = setInterval(() => {
-      if (loadFlag >= 10) {
+      if (loadFlag >= 5) {
         clearInterval(intervalID)
       }
       console.log(loadFlag)

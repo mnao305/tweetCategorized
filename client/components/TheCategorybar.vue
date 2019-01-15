@@ -15,7 +15,7 @@
               <v-list-tile-title>{{ category.title }}</v-list-tile-title>
               <v-list-tile-sub-title v-if="category.description">{{ category.description }}</v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-list-tile-action>{{ category.count }}</v-list-tile-action>
+            <v-list-tile-action>{{ tweets[index].length }}</v-list-tile-action>
             <v-list-tile-action>
               <v-menu
                 open-on-hover
@@ -30,7 +30,7 @@
                   <v-list-tile @click="$router.push(`/dashboard/add/fav`)">
                     <v-list-tile-title>いいねから追加</v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile @click="$router.push(`/dashboard/add/url`)">
+                  <v-list-tile @click="fromCategory = category.title;flag = true">
                     <v-list-tile-title>URLから追加</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
@@ -46,16 +46,19 @@
     <div class="text-xs-center">
       <addCategory />
     </div>
+    <addTweetToURL />
   </v-navigation-drawer>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import addCategory from '~/components/addCategory.vue'
+import addTweetToURL from '~/components/addTweetToURL.vue'
 
 export default {
   components: {
-    addCategory
+    addCategory,
+    addTweetToURL
   },
   computed: {
     drawer: {
@@ -66,7 +69,24 @@ export default {
         this.$store.commit('categorys/toggleFlag', val)
       }
     },
-    ...mapGetters('categorys', ['categorys'])
+    flag: {
+      get() {
+        return this.$store.state.tweets.flag
+      },
+      set(val) {
+        this.$store.commit('tweets/toggleFlag', val)
+      }
+    },
+    fromCategory: {
+      get() {
+        return this.$store.state.tweets.fromCategory
+      },
+      set(fromCategory) {
+        this.$store.commit('tweets/changeFromCatagory', fromCategory)
+      }
+    },
+    ...mapGetters('categorys', ['categorys']),
+    ...mapGetters('tweets', ['tweets'])
   }
 }
 </script>
