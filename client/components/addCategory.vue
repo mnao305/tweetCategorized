@@ -25,7 +25,7 @@
                   :counter="10"
                   v-model="title"
                   :rules="titleRules"
-                  label="Title"
+                  label="Title*"
                   required />
               </v-flex>
               <v-flex xs12>
