@@ -55,7 +55,6 @@ export default {
       // eslint-disable-next-line eqeqeq
       return e.id == id
     })
-    console.log(flag)
 
     if (!flag) {
       error({ statusCode: 404 })
@@ -78,7 +77,6 @@ export default {
       if (loadFlag >= 5) {
         clearInterval(intervalID)
       }
-      console.log(loadFlag)
 
       this.$redrawVueMasonry()
       loadFlag++
