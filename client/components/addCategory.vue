@@ -1,7 +1,6 @@
 <template>
   <v-dialog
     v-model="dialog"
-    persistent
     max-width="600px">
     <v-btn slot="activator">
       Add Category

@@ -1,7 +1,6 @@
 <template>
   <v-dialog
     v-model="flag"
-    persistent
     max-width="600px">
     <v-card>
       <v-card-title>
