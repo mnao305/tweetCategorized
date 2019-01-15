@@ -48,7 +48,13 @@ export default {
   components: {
     Tweet
   },
-  async asyncData({ store }) {
+  async asyncData({ store, route, error }) {
+    const { id } = route.params
+    const categorys = store.state.categorys.categorys
+    if (categorys.length < id) {
+      error({ statusCode: 404 })
+    }
+
     // await store.dispatch('tweets')
   },
   data() {
