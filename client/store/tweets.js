@@ -79,7 +79,7 @@ export const mutations = {
   pushTweet(state, { newTweet, toCategoryID }) {
     state.tweets[toCategoryID].push(newTweet)
   },
-  addCategory(state) {
+  pushCategory(state) {
     state.tweets.push([])
   }
 }
@@ -88,5 +88,9 @@ export const actions = {
   async addTweet({ commit }, { newTweet, toCategoryID }) {
     // TODO:データ保存処理
     commit('pushTweet', { newTweet, toCategoryID })
+  },
+  async addCategory({ commit }) {
+    // TODO:データ保存処理
+    commit('pushCategory')
   }
 }

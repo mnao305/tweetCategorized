@@ -85,14 +85,14 @@ export default {
     async addCategorySubmit() {
       if (this.$refs.addCategoryForm.validate()) {
         const nextID = this.categorys[this.categorys.length - 1].id + 1
-        const newCategory = {
+        const payload = {
           id: nextID,
           title: this.title,
           description: this.description,
           count: 0
         }
-        await this.addCategory({ newCategory })
-        this.$store.commit('tweets/addCategory')
+        await this.newCategory({ payload })
+        await this.addCategory()
         this.dialog = false
         this.$refs.addCategoryForm.reset()
       }
@@ -100,7 +100,8 @@ export default {
     duplicateCheck(e) {
       return e.title === this.title
     },
-    ...mapActions('categorys', ['addCategory'])
+    ...mapActions('categorys', ['newCategory']),
+    ...mapActions('tweets', ['addCategory'])
   }
 }
 </script>

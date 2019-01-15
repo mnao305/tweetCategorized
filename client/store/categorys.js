@@ -23,14 +23,14 @@ export const mutations = {
   toggleFlag(state, val) {
     state.flag = val
   },
-  pushCategory(state, { newCategory }) {
-    state.categorys.push(newCategory)
+  pushCategory(state, { payload }) {
+    state.categorys.push(payload)
   }
 }
 
 export const actions = {
-  async addCategory({ commit }, { newCategory }) {
+  async newCategory({ commit }, { payload }) {
     // TODO:データ保存処理
-    commit('pushCategory', { newCategory })
+    commit('pushCategory', { payload })
   }
 }
