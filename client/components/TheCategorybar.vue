@@ -6,16 +6,16 @@
     app>
     <no-ssr>
       <v-list>
-        <template v-for="(category, index) in categorys">
+        <template v-for="category in categorys">
           <v-list-tile
-            :key="index"
+            :key="category.id"
             ripple
             @click="$router.push(`/dashboard/${category.id}`)">
             <v-list-tile-content>
               <v-list-tile-title>{{ category.title }}</v-list-tile-title>
               <v-list-tile-sub-title v-if="category.description">{{ category.description }}</v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-list-tile-action>{{ tweets[index].tweet.length }}</v-list-tile-action>
+            <v-list-tile-action>{{ tweets[category.id].tweet.length }}</v-list-tile-action>
             <v-list-tile-action>
               <v-menu
                 open-on-hover
@@ -30,7 +30,7 @@
                   <v-list-tile @click="$router.push(`/dashboard/add/fav`)">
                     <v-list-tile-title>いいねから追加</v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile @click="fromCategory = category;flag = true">
+                  <v-list-tile @click="fromCategory = category.id;flag = true">
                     <v-list-tile-title>URLから追加</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
@@ -38,7 +38,7 @@
             </v-list-tile-action>
           </v-list-tile>
           <v-divider
-            :key="`divider-${index}`"
+            :key="`divider-${category.id}`"
             dark />
         </template>
       </v-list>
