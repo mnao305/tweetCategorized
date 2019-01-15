@@ -1,18 +1,42 @@
 <template>
   <div>
-    <div
+    <v-layout
       v-masonry
       transition-duration="0s"
       item-selector=".item"
       class="masonry-container">
-      <div
+      <v-flex
         v-masonry-tile
-        v-for="(tw, index) in tweets[$route.params.id]"
-        :key="index"
+        v-for="tw in tweets[$route.params.id]"
+        :key="tw.id"
         class="item">
-        <Tweet :id="tw.id" />
-      </div>
-    </div>
+        <v-card>
+          <Tweet :id="tw.id" />
+          <v-card-text>
+            <span v-if="edit !== tw.id">{{ tw.description }}</span>
+            <v-textarea
+              v-else
+              :value="tw.description" />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn @click="editMode(tw.id)">
+              {{ edit !== tw.id ? 'Edit' : 'Cancel' }}
+            </v-btn>
+            <v-btn
+              v-if="edit !== tw.id"
+              color="warning">
+              Delete
+            </v-btn>
+            <v-btn
+              v-else
+              color="success">
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -26,6 +50,11 @@ export default {
   },
   async asyncData({ store }) {
     // await store.dispatch('tweets')
+  },
+  data() {
+    return {
+      edit: null
+    }
   },
   computed: {
     ...mapGetters('tweets', ['tweets'])
@@ -42,13 +71,21 @@ export default {
       this.$redrawVueMasonry()
       loadFlag++
     }, 500)
+  },
+  methods: {
+    editMode(index) {
+      this.edit = this.edit !== index ? index : null
+      setTimeout(() => {
+        this.$redrawVueMasonry()
+      }, 100)
+    }
   }
 }
 </script>
 
 <style>
 .item {
-  max-width: 250px;
+  width: 280px;
   padding: 0 5px;
 }
 </style>
