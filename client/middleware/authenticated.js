@@ -1,5 +1,5 @@
 export default function({ store, route, redirect }) {
-  if (!store.getters.isAuthenticated && route.name !== 'dashboard') {
+  if (!store.getters.isAuthenticated && route.name === 'dashboard') {
     redirect('/')
   }
 }
