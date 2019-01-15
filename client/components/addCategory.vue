@@ -88,9 +88,9 @@ export default {
         const payload = {
           id: nextID,
           title: this.title,
-          description: this.description,
-          count: 0
+          description: this.description
         }
+
         await this.newCategory({ payload })
         await this.addCategory()
         this.dialog = false

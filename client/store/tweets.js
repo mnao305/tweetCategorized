@@ -2,58 +2,64 @@ export const state = () => ({
   flag: false,
   fromCategory: null,
   tweets: [
-    [
-      {
-        id: '1084378745568354304',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1072787982413754368',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1083332271292235776',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1084367818198474752',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1084363838907019266',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1079307918401368064',
-        description: 'hoigehoge'
-      }
-    ],
-    [
-      {
-        id: '1084378745568354304',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1072787982413754368',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1083332271292235776',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1084367818198474752',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1084363838907019266',
-        description: 'hoigehoge'
-      },
-      {
-        id: '1079307918401368064',
-        description: 'hoigehoge'
-      }
-    ]
+    {
+      id: 0,
+      tweet: [
+        {
+          id: '1084378745568354304',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1072787982413754368',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1083332271292235776',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1084367818198474752',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1084363838907019266',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1079307918401368064',
+          description: 'hoigehoge'
+        }
+      ]
+    },
+    {
+      id: 1,
+      tweet: [
+        {
+          id: '1084378745568354304',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1072787982413754368',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1083332271292235776',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1084367818198474752',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1084363838907019266',
+          description: 'hoigehoge'
+        },
+        {
+          id: '1079307918401368064',
+          description: 'hoigehoge'
+        }
+      ]
+    }
   ]
 })
 
@@ -69,10 +75,10 @@ export const mutations = {
     state.fromCategory = fromCategory
   },
   pushTweet(state, { newTweet, toCategoryID }) {
-    state.tweets[toCategoryID].push(newTweet)
+    state.tweets[toCategoryID].tweet.push(newTweet)
   },
-  pushCategory(state) {
-    state.tweets.push([])
+  pushCategory(state, { payload }) {
+    state.tweets.push(payload)
   }
 }
 
@@ -81,8 +87,12 @@ export const actions = {
     // TODO:データ保存処理
     commit('pushTweet', { newTweet, toCategoryID })
   },
-  async addCategory({ commit }) {
+  async addCategory({ commit, state }) {
+    const payload = {
+      id: state.tweets.length,
+      tweet: []
+    }
     // TODO:データ保存処理
-    commit('pushCategory')
+    commit('pushCategory', { payload })
   }
 }

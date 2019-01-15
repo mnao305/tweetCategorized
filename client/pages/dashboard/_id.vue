@@ -7,7 +7,7 @@
       class="masonry-container">
       <v-flex
         v-masonry-tile
-        v-for="tw in tweets[$route.params.id]"
+        v-for="tw in tweets[$route.params.id].tweet"
         :key="tw.id"
         class="item">
         <v-card>

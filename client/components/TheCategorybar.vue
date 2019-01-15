@@ -15,7 +15,7 @@
               <v-list-tile-title>{{ category.title }}</v-list-tile-title>
               <v-list-tile-sub-title v-if="category.description">{{ category.description }}</v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-list-tile-action>{{ tweets[index].length }}</v-list-tile-action>
+            <v-list-tile-action>{{ tweets[index].tweet.length }}</v-list-tile-action>
             <v-list-tile-action>
               <v-menu
                 open-on-hover
