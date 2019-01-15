@@ -13,7 +13,7 @@
         </span>
       </v-card-title>
       <v-form
-        ref="form"
+        ref="addCategoryForm"
         v-model="valid"
         lazy-validation
       >
@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     async addCategorySubmit() {
-      if (this.$refs.form.validate()) {
+      if (this.$refs.addCategoryForm.validate()) {
         const nextID = this.categorys[this.categorys.length - 1].id + 1
         const newCategory = {
           id: nextID,
@@ -93,7 +93,7 @@ export default {
         }
         await this.addCategory({ newCategory })
         this.dialog = false
-        this.$refs.form.reset()
+        this.$refs.addCategoryForm.reset()
       }
     },
     ...mapActions('categorys', ['addCategory'])
