@@ -51,7 +51,13 @@ export default {
   async asyncData({ store, route, error }) {
     const { id } = route.params
     const categorys = store.state.categorys.categorys
-    if (categorys.length < id) {
+    const flag = categorys.some(e => {
+      // eslint-disable-next-line eqeqeq
+      return e.id == id
+    })
+    console.log(flag)
+
+    if (!flag) {
       error({ statusCode: 404 })
     }
 
