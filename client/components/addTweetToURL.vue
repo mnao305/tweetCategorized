@@ -10,7 +10,7 @@
       </v-card-title>
       <v-form
         ref="addTweetForm"
-        v-model="valid"
+        v-model="addTweetValid"
         lazy-validation
       >
         <v-card-text>
@@ -37,7 +37,10 @@
                   v-model="toCategory"
                   :items="categorys"
                   item-text="title"
-                  label="to Category" />
+                  item-value="id"
+                  label="to Category"
+                  @input="$refs.addTweetForm.validate()"
+                  @change="$refs.addTweetForm.validate()" />
               </v-flex>
             </v-layout>
           </v-container>
@@ -51,7 +54,7 @@
             Close
           </v-btn>
           <v-btn
-            :disabled="!valid"
+            :disabled="!addTweetValid"
             color="success"
             @click="addTweetSubmit"
           >
@@ -82,8 +85,9 @@ export default {
     return {
       URL: '',
       description: '',
-      valid: true,
+      addTweetValid: true,
       tweetCheckFlag: true,
+      duplicate: false,
       URLRules: [
         v => !!v || 'URL is required',
         v => (v && v.length <= 100) || 'URL must be less than 70 characters',
@@ -92,7 +96,8 @@ export default {
             RegExp('^https://twitter.com/[a-z0-9_]+/status/[0-9]+$', 'i').test(
               v
             )) ||
-          'URL must be valid(https://twitter.com/userID/status/TweetID)'
+          'URL must be valid(https://twitter.com/userID/status/TweetID)',
+        v => (v && this.duplicateCheck(v)) || 'Duplicate'
       ],
       descriptionRules: [
         v =>
@@ -117,7 +122,8 @@ export default {
         this.$store.commit('tweets/changeFromCatagory', fromCategory)
       }
     },
-    ...mapGetters('categorys', ['categorys'])
+    ...mapGetters('categorys', ['categorys']),
+    ...mapGetters('tweets', ['tweets'])
   },
   methods: {
     async addTweetSubmit() {
@@ -127,8 +133,8 @@ export default {
           id: tweetID,
           description: this.description
         }
-        const toCategory = this.toCategory
-        await this.addTweet({ newTweet, toCategory })
+
+        await this.addTweet({ newTweet })
         this.flag = false
         this.$refs.addTweetForm.reset()
         // 追加すると表示が崩れるのでMasonry再draw
@@ -144,6 +150,17 @@ export default {
           this.tweetCheckFlag = !this.tweetCheckFlag
         }, 100)
       }
+    },
+    duplicateCheck(e) {
+      if (this.toCategory != null) {
+        let tweet = this.tweets[this.toCategory].tweet
+        for (let i = 0; i < tweet.length; i++) {
+          if (e.split('/')[5] === tweet[i].id) {
+            return false
+          }
+        }
+      }
+      return true
     },
     ...mapActions('tweets', ['addTweet'])
   }
