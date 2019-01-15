@@ -23,7 +23,8 @@
                   v-model="URL"
                   :rules="URLRules"
                   label="TweetURL*"
-                  required />
+                  required
+                  @input="changeURL" />
               </v-flex>
               <v-flex xs12>
                 <v-text-field
@@ -44,8 +45,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
+
           <v-btn
-            @click="$store.commit('tweets/toggleFlag', !$store.state.tweets.flag)"
+            @click="$store.commit('tweets/toggleFlag', !$store.state.tweets.flag);"
           >
             Close
           </v-btn>
@@ -58,19 +60,31 @@
           </v-btn>
         </v-card-actions>
       </v-form>
+      <v-card-actions v-if="tweetCheckFlag">
+        <Tweet
+          v-if="`${URL}`.split('/')[5]"
+          :id="`${URL}`.split('/')[5]"
+          style="margin: 0 auto;max-width: 90%;" />
+      </v-card-actions>
     </v-card>
+
   </v-dialog>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { Tweet } from 'vue-tweet-embed'
 
 export default {
+  components: {
+    Tweet
+  },
   data() {
     return {
       URL: '',
       description: '',
       valid: true,
+      tweetCheckFlag: true,
       URLRules: [
         v => !!v || 'Title is required',
         v => (v && v.length <= 100) || 'URL must be less than 70 characters',
@@ -127,6 +141,14 @@ export default {
         setTimeout(() => {
           this.$redrawVueMasonry()
         }, 500)
+      }
+    },
+    async changeURL() {
+      if (this.$refs.addTweetForm.validate()) {
+        this.tweetCheckFlag = !this.tweetCheckFlag
+        setTimeout(() => {
+          this.tweetCheckFlag = !this.tweetCheckFlag
+        }, 100)
       }
     },
     ...mapActions('tweets', ['addTweet'])
