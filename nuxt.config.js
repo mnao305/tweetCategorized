@@ -64,6 +64,10 @@ module.exports = {
     MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID
   },
 
+  router: {
+    middleware: 'authenticated'
+  },
+
   /*
   ** Build configuration
   */
