@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <the-header/>
+    <TheHeader/>
     <v-content>
       <v-container fluid>
         <nuxt />
       </v-container>
     </v-content>
-    <the-footer />
+    <TheFooter />
   </v-app>
 </template>
 

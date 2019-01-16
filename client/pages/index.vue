@@ -20,7 +20,7 @@ import firebase from '~/plugins/firebase'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  layout: 'top',
+  layout: 'noCategoryBar',
   computed: {
     ...mapGetters('users', ['isAuthenticated'])
   },
