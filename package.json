@@ -21,7 +21,8 @@
     "nuxt": "^2.0.0",
     "vue-masonry": "^0.11.7",
     "vue-tweet-embed": "^2.1.2",
-    "vuetify": "^1.2.4"
+    "vuetify": "^1.2.4",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
