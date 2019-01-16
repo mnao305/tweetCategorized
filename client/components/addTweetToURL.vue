@@ -30,7 +30,7 @@
                   :counter="100"
                   v-model="description"
                   :rules="descriptionRules"
-                  label="Description" />
+                  label="Memo" />
               </v-flex>
               <v-flex xs12>
                 <v-select
