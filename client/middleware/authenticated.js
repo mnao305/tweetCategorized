@@ -10,8 +10,6 @@ export default function({ store, route, redirect }) {
       store.commit('users/logout')
     } else {
       // サインイン済み
-      const payload = firebase.auth().currentUser.providerData[0]
-      store.dispatch('users/setUser', payload)
     }
   })
 }
