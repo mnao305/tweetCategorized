@@ -3,7 +3,9 @@
     clipped-left
     app>
     <v-toolbar-side-icon @click="$store.commit('categorys/toggleFlag', !$store.state.categorys.flag)"/>
-    <v-toolbar-title>tweetCategorized</v-toolbar-title>
+    <v-toolbar-title
+      style="cursor: pointer;"
+      @click="$router.push('/')">tweetCategorized</v-toolbar-title>
     <v-spacer />
     <span v-if="isAuthenticated">{{ $store.state.users.user.displayName }}</span>
     <v-menu offset-y>

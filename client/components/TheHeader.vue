@@ -2,7 +2,9 @@
   <v-toolbar
     clipped-left
     app>
-    <v-toolbar-title>tweetCategorized</v-toolbar-title>
+    <v-toolbar-title
+      style="cursor: pointer;"
+      @click="$router.push('/')">tweetCategorized</v-toolbar-title>
     <v-spacer />
     <v-btn
       v-if="!isAuthenticated"
