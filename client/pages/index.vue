@@ -8,19 +8,29 @@
     <p>hogefugahogefugahogefugahogefugahogefugahogefuga</p>
     <p>hogefugahogefugahogefugahogefugahogefugahogefuga</p>
     <v-btn
+      v-if="!isAuthenticated"
       color="info"
       @click="login">
       Register / Login
+    </v-btn>
+    <v-btn
+      v-else
+      color="info"
+      @click="$router.push('/dashboard/')">
+      Go dashboard
     </v-btn>
   </div>
 </template>
 
 <script>
 import firebase from '~/plugins/firebase'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   layout: 'noCategoryBar',
+  computed: {
+    ...mapGetters('users', ['isAuthenticated'])
+  },
   methods: {
     login() {
       const provider = new firebase.auth.TwitterAuthProvider()
@@ -36,7 +46,7 @@ export default {
           const secret = result.credential.secret
           this.setUser(user)
           this.setToken({ token, secret })
-          this.$router.push('/dashboard/0')
+          this.$router.push('/dashboard/')
         })
         .catch(error => {
           console.log(error)

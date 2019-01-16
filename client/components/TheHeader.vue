@@ -9,7 +9,7 @@
       @click="login">Login</v-btn>
     <v-btn
       v-else
-      @click="$router.push('/dashboard/0')">Dashboard</v-btn>
+      @click="$router.push('/dashboard/')">Dashboard</v-btn>
     <v-menu offset-y>
       <v-btn
         slot="activator"
@@ -51,7 +51,7 @@ export default {
           // The signed-in user info.
           const user = result.user.providerData[0]
           this.setUser(user)
-          this.$router.push('/dashboard/0')
+          this.$router.push('/dashboard/')
         })
         .catch(error => {
           console.log(error)
