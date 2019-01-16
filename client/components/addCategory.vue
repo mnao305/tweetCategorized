@@ -95,6 +95,7 @@ export default {
         await this.addCategory()
         this.dialog = false
         this.$refs.addCategoryForm.reset()
+        this.$router.push(`/dashboard/${nextID}`)
       }
     },
     duplicateCheck(e) {
