@@ -50,10 +50,7 @@ export default {
           // You can use these server side with your app's credentials to access the Twitter API.
           // The signed-in user info.
           const user = result.user.providerData[0]
-          const token = result.credential.accessToken
-          const secret = result.credential.secret
           this.setUser(user)
-          this.setToken({ token, secret })
           this.$router.push('/dashboard/0')
         })
         .catch(error => {
@@ -72,7 +69,7 @@ export default {
       this.$store.commit('users/logout')
       this.$router.push('/')
     },
-    ...mapActions('users', ['setUser', 'setToken'])
+    ...mapActions('users', ['setUser'])
   }
 }
 </script>
