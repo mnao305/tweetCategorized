@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import TheHeader from '~/components/TheHeader.vue'
+import TheHeader from '~/components/TheDashboardHeader.vue'
 import TheFooter from '~/components/TheFooter.vue'
 import TheCategorybar from '~/components/TheCategorybar.vue'
 
