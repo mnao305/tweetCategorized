@@ -2,18 +2,14 @@
   <v-toolbar
     clipped-left
     app>
-    <v-toolbar-side-icon
-      v-if="$route.path !== '/'"
-      @click="$store.commit('categorys/toggleFlag', !$store.state.categorys.flag)"/>
     <v-toolbar-title>tweetCategorized</v-toolbar-title>
     <v-spacer />
     <v-btn
       v-if="!isAuthenticated"
       @click="login">Login</v-btn>
-    <span v-else>{{ $store.state.users.user.displayName }}
-      <v-btn
-        @click="$router.push('/dashboard/0')">Dashboard</v-btn>
-    </span>
+    <v-btn
+      v-else
+      @click="$router.push('/dashboard/0')">Dashboard</v-btn>
     <v-menu offset-y>
       <v-btn
         slot="activator"
