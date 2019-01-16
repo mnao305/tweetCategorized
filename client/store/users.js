@@ -1,3 +1,5 @@
+import firebase from '~/plugins/firebase'
+
 export const state = () => ({
   user: null
 })
@@ -13,6 +15,7 @@ export const mutations = {
     state.user = payload
   },
   logout(state) {
+    firebase.auth().signOut()
     state.user = null
   }
 }
