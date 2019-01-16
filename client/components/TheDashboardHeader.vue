@@ -13,7 +13,7 @@
         <v-icon>more_vert</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile>
+        <v-list-tile @click="$router.push('/about')">
           <v-list-tile-title>About</v-list-tile-title>
         </v-list-tile>
         <v-list-tile
