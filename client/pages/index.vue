@@ -17,13 +17,10 @@
 
 <script>
 import firebase from '~/plugins/firebase'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   layout: 'noCategoryBar',
-  computed: {
-    ...mapGetters('users', ['isAuthenticated'])
-  },
   methods: {
     login() {
       const provider = new firebase.auth.TwitterAuthProvider()
@@ -52,10 +49,6 @@ export default {
           // const credential = error.credential
           // ...
         })
-    },
-    logout() {
-      this.$store.commit('users/logout')
-      this.$router.push('/')
     },
     ...mapActions('users', ['setUser', 'setToken'])
   }
