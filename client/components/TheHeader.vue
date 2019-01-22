@@ -55,7 +55,7 @@ export default {
         })
     },
     logout() {
-      this.$store.commit('users/logout')
+      this.$store.dispatch('users/logout')
       this.$router.push('/')
     },
     ...mapActions('users', ['setUser'])

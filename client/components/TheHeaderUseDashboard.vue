@@ -32,13 +32,12 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  asyncData({ store }) {},
   computed: {
     ...mapGetters('users', ['isAuthenticated'])
   },
   methods: {
     logout() {
-      this.$store.commit('users/logout')
+      this.$store.dispatch('users/logout')
       this.$router.push('/')
     }
   }

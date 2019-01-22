@@ -16,7 +16,6 @@ export const mutations = {
     state.user = payload
   },
   logout(state) {
-    firebase.auth().signOut()
     state.user = null
   }
 }
@@ -58,5 +57,11 @@ export const actions = {
       })
 
     commit('setUser', payload)
+  },
+  logout({ commit }) {
+    commit('logout')
+    commit('categorys/clearCategorys', null, { root: true })
+    commit('tweets/clearTweets', null, { root: true })
+    firebase.auth().signOut()
   }
 }

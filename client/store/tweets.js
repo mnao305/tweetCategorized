@@ -82,6 +82,9 @@ export const mutations = {
   },
   setTweets(state, payload) {
     state.tweets = payload
+  },
+  clearTweets(state) {
+    state.tweets = []
   }
 }
 

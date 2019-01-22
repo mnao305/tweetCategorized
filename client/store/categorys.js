@@ -28,6 +28,9 @@ export const mutations = {
   },
   setCategorys(state, payload) {
     state.categorys = payload
+  },
+  clearCategorys(state) {
+    state.categorys = []
   }
 }
 
