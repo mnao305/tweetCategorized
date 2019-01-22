@@ -25,6 +25,9 @@ export const mutations = {
   },
   pushCategory(state, { payload }) {
     state.categorys.push(payload)
+  },
+  setCategorys(state, payload) {
+    state.categorys = payload
   }
 }
 

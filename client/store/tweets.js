@@ -79,6 +79,9 @@ export const mutations = {
   },
   pushCategory(state, { payload }) {
     state.tweets.push(payload)
+  },
+  setTweets(state, payload) {
+    state.tweets = payload
   }
 }
 
