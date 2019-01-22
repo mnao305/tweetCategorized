@@ -1,5 +1,5 @@
 export const state = () => ({
-  flag: null,
+  flag: true,
   categorys: []
 })
 
