@@ -1,66 +1,7 @@
 export const state = () => ({
   flag: false,
   fromCategory: null,
-  tweets: [
-    {
-      id: 0,
-      tweet: [
-        {
-          id: '1084378745568354304',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1072787982413754368',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1083332271292235776',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1084367818198474752',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1084363838907019266',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1079307918401368064',
-          description: 'hoigehoge'
-        }
-      ]
-    },
-    {
-      id: 1,
-      tweet: [
-        {
-          id: '1084378745568354304',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1072787982413754368',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1083332271292235776',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1084367818198474752',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1084363838907019266',
-          description: 'hoigehoge'
-        },
-        {
-          id: '1079307918401368064',
-          description: 'hoigehoge'
-        }
-      ]
-    }
-  ]
+  tweets: []
 })
 
 export const getters = {

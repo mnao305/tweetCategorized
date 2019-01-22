@@ -1,18 +1,6 @@
 export const state = () => ({
   flag: null,
-  // テストデータ
-  categorys: [
-    {
-      id: 0,
-      title: '後で見る',
-      description: 'メモ'
-    },
-    {
-      id: 1,
-      title: '有能',
-      description: ''
-    }
-  ]
+  categorys: []
 })
 
 export const getters = {
