@@ -84,15 +84,17 @@ export default {
   methods: {
     async addCategorySubmit() {
       if (this.$refs.addCategoryForm.validate()) {
-        const nextID = this.categorys[this.categorys.length - 1].id + 1
+        const nextID = this.categorys[0]
+          ? Number(this.categorys[this.categorys.length - 1].id) + 1
+          : '0'
         const payload = {
-          id: nextID,
+          id: `${nextID}`,
           title: this.title,
           description: this.description
         }
 
         await this.newCategory({ payload })
-        await this.addCategory()
+        await this.addCategory(nextID)
         this.dialog = false
         this.$refs.addCategoryForm.reset()
         this.$router.push(`/dashboard/${nextID}`)

@@ -93,9 +93,9 @@ export const actions = {
     // TODO:データ保存処理
     commit('pushTweet', { newTweet })
   },
-  async addCategory({ commit, state }) {
+  async addCategory({ commit }, nextID) {
     const payload = {
-      id: state.tweets.length,
+      id: `${nextID}`,
       tweet: []
     }
     // TODO:データ保存処理
