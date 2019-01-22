@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebase'
+import auth from '~/plugins/auth'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -33,10 +33,8 @@ export default {
   },
   methods: {
     login() {
-      const provider = new firebase.auth.TwitterAuthProvider()
-      firebase
-        .auth()
-        .signInWithPopup(provider)
+      auth
+        .login()
         .then(result => {
           const user = result.user.providerData[0]
           this.setUser(user)
@@ -44,14 +42,6 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          // Handle Errors here.
-          // const errorCode = error.code
-          // const errorMessage = error.message
-          // // The email of the user's account used.
-          // const email = error.email
-          // // The firebase.auth.AuthCredential type that was used.
-          // const credential = error.credential
-          // ...
         })
     },
     ...mapActions('users', ['setUser'])
