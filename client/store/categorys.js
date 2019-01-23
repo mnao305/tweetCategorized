@@ -1,3 +1,5 @@
+import { db, FieldValue } from '~/plugins/firestore'
+
 export const state = () => ({
   flag: true,
   categorys: []
@@ -23,8 +25,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async newCategory({ commit }, { payload }) {
-    // TODO:データ保存処理
+  newCategory({ commit, rootState }, { payload }) {
+    db.collection('users')
+      .doc(rootState.users.user.uid)
+      .update({ categorys: FieldValue.arrayUnion(payload) })
+
     commit('pushCategory', { payload })
   }
 }

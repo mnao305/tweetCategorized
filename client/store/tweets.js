@@ -1,3 +1,5 @@
+import { db, FieldValue } from '~/plugins/firestore'
+
 export const state = () => ({
   flag: false,
   fromCategory: null,
@@ -34,12 +36,15 @@ export const actions = {
     // TODO:データ保存処理
     commit('pushTweet', { newTweet })
   },
-  async addCategory({ commit }, nextID) {
+  async addCategory({ commit, rootState }, nextID) {
     const payload = {
       id: `${nextID}`,
       tweet: []
     }
-    // TODO:データ保存処理
+    db.collection('users')
+      .doc(rootState.users.user.uid)
+      .update({ tweets: FieldValue.arrayUnion(payload) })
+
     commit('pushCategory', { payload })
   }
 }
