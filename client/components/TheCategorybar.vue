@@ -15,7 +15,7 @@
               <v-list-tile-title>{{ category.title }}</v-list-tile-title>
               <v-list-tile-sub-title v-if="category.description">{{ category.description }}</v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-list-tile-action>{{ tweets[category.id].tweet.length }}</v-list-tile-action>
+            <v-list-tile-action>{{ category.tweets.length }}</v-list-tile-action>
             <v-list-tile-action>
               <v-menu
                 open-on-hover
@@ -71,22 +71,21 @@ export default {
     },
     flag: {
       get() {
-        return this.$store.state.tweets.flag
+        return this.$store.state.categorys.addTweetFlag
       },
       set(val) {
-        this.$store.commit('tweets/toggleFlag', val)
+        this.$store.commit('categorys/toggleAddTweetFlag', val)
       }
     },
     fromCategory: {
       get() {
-        return this.$store.state.tweets.fromCategory
+        return this.$store.state.categorys.fromCategory
       },
       set(fromCategory) {
-        this.$store.commit('tweets/changeFromCatagory', fromCategory)
+        this.$store.commit('categorys/changeFromCatagory', fromCategory)
       }
     },
-    ...mapGetters('categorys', ['categorys']),
-    ...mapGetters('tweets', ['tweets'])
+    ...mapGetters('categorys', ['categorys'])
   }
 }
 </script>

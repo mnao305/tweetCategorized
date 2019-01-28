@@ -7,24 +7,24 @@
       class="masonry-container">
       <v-flex
         v-masonry-tile
-        v-for="tw in tweets[$route.params.id].tweet"
-        :key="tw.id"
+        v-for="tweet in categorys[$route.params.id].tweets"
+        :key="tweet.id"
         class="item">
         <v-card>
-          <Tweet :id="tw.id" />
+          <Tweet :id="tweet.id" />
           <v-card-text>
-            <span v-if="edit !== tw.id">{{ tw.description }}</span>
+            <span v-if="edit !== tweet.id">{{ tweet.description }}</span>
             <v-textarea
               v-else
-              :value="tw.description" />
+              :value="tweet.description" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="editMode(tw.id)">
-              {{ edit !== tw.id ? 'Edit' : 'Cancel' }}
+            <v-btn @click="editMode(tweet.id)">
+              {{ edit !== tweet.id ? 'Edit' : 'Cancel' }}
             </v-btn>
             <v-btn
-              v-if="edit !== tw.id"
+              v-if="edit !== tweet.id"
               color="warning">
               Delete
             </v-btn>
@@ -59,8 +59,6 @@ export default {
     if (!flag) {
       error({ statusCode: 404 })
     }
-
-    // await store.dispatch('tweets')
   },
   data() {
     return {
@@ -68,7 +66,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('tweets', ['tweets'])
+    ...mapGetters('categorys', ['categorys'])
   },
   mounted() {
     // 一回だけじゃ上手くいかないことがあったのでそれ用の対応

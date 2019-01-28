@@ -21,7 +21,7 @@ export const mutations = {
 }
 
 export const actions = {
-  setUser({ commit }, payload) {
+  setUser({ commit, dispatch }, payload) {
     const userID = payload.uid
 
     db.collection('users')
@@ -34,9 +34,7 @@ export const actions = {
             .set(
               {
                 userID: userID,
-                created_at: new Date(),
-                tweets: [],
-                categorys: []
+                created_at: new Date()
               },
               { merge: true }
             )
@@ -47,9 +45,8 @@ export const actions = {
               console.error('Error adding document: ', error)
             })
         } else {
-          const data = doc.data()
-          commit('categorys/setCategorys', data.categorys, { root: true })
-          commit('tweets/setTweets', data.tweets, { root: true })
+          const data = doc.data().userID
+          dispatch('categorys/setCategorys', data, { root: true })
         }
       })
       .catch(error => {
@@ -61,7 +58,6 @@ export const actions = {
   logout({ commit }) {
     commit('logout')
     commit('categorys/clearCategorys', null, { root: true })
-    commit('tweets/clearTweets', null, { root: true })
     firebase.auth().signOut()
   }
 }

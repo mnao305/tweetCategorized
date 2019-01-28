@@ -49,7 +49,7 @@
           <v-spacer/>
 
           <v-btn
-            @click="$store.commit('tweets/toggleFlag', !$store.state.tweets.flag);"
+            @click="$store.commit('categorys/toggleAddTweetFlag', !$store.state.categorys.addTweetFlag);"
           >
             Close
           </v-btn>
@@ -108,22 +108,21 @@ export default {
   computed: {
     flag: {
       get() {
-        return this.$store.state.tweets.flag
+        return this.$store.state.categorys.addTweetFlag
       },
       set(val) {
-        this.$store.commit('tweets/toggleFlag', val)
+        this.$store.commit('categorys/toggleAddTweetFlag', val)
       }
     },
     toCategory: {
       get() {
-        return this.$store.state.tweets.fromCategory
+        return this.$store.state.categorys.fromCategory
       },
       set(fromCategory) {
-        this.$store.commit('tweets/changeFromCatagory', fromCategory)
+        this.$store.commit('categorys/changeFromCatagory', fromCategory)
       }
     },
-    ...mapGetters('categorys', ['categorys']),
-    ...mapGetters('tweets', ['tweets'])
+    ...mapGetters('categorys', ['categorys'])
   },
   methods: {
     async addTweetSubmit() {
@@ -153,7 +152,7 @@ export default {
     },
     duplicateCheck(e) {
       if (this.toCategory != null) {
-        let tweet = this.tweets[this.toCategory].tweet
+        let tweet = this.categorys[this.toCategory].tweets
         for (let i = 0; i < tweet.length; i++) {
           if (e.split('/')[5] === tweet[i].id) {
             return false
@@ -162,7 +161,7 @@ export default {
       }
       return true
     },
-    ...mapActions('tweets', ['addTweet'])
+    ...mapActions('categorys', ['addTweet'])
   }
 }
 </script>

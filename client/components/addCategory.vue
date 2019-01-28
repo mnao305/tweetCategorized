@@ -90,11 +90,11 @@ export default {
         const payload = {
           id: `${nextID}`,
           title: this.title,
-          description: this.description
+          description: this.description,
+          tweets: []
         }
 
         await this.newCategory({ payload })
-        await this.addCategory(nextID)
         this.dialog = false
         this.$refs.addCategoryForm.reset()
         this.$router.push(`/dashboard/${nextID}`)
@@ -103,8 +103,7 @@ export default {
     duplicateCheck(e) {
       return e.title === this.title
     },
-    ...mapActions('categorys', ['newCategory']),
-    ...mapActions('tweets', ['addCategory'])
+    ...mapActions('categorys', ['newCategory'])
   }
 }
 </script>
