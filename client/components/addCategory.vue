@@ -90,7 +90,7 @@ export default {
         const payload = {
           id: `${nextID}`,
           title: this.title,
-          description: this.description,
+          description: this.description ? this.description : '',
           tweets: []
         }
 
