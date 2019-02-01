@@ -70,10 +70,6 @@ module.exports = {
     TWITTER_SECRET: process.env.TWITTER_SECRET
   },
 
-  router: {
-    middleware: 'authenticated'
-  },
-
   /*
   ** Build configuration
   */
