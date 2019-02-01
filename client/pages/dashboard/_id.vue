@@ -48,7 +48,7 @@ export default {
   components: {
     Tweet
   },
-  async asyncData({ store, route, error }) {
+  async asyncData({ store, route, redirect }) {
     const { id } = route.params
     const categorys = store.state.categorys.categorys
     const flag = categorys.some(e => {
@@ -57,7 +57,7 @@ export default {
     })
 
     if (!flag) {
-      error({ statusCode: 404 })
+      redirect('/dashboard')
     }
   },
   data() {
