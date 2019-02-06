@@ -32,7 +32,8 @@ export const actions = {
             .set(
               {
                 userID: user.uid,
-                created_at: FieldValue.serverTimestamp()
+                created_at: FieldValue.serverTimestamp(),
+                update_at: FieldValue.serverTimestamp()
               },
               { merge: true }
             )

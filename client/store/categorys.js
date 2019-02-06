@@ -79,6 +79,8 @@ export const actions = {
           .set(payload)
       })
 
+    updateTime()
+
     commit('pushCategory', { payload })
   },
   async addTweet({ commit, state }, { newTweet }) {
@@ -101,6 +103,23 @@ export const actions = {
           })
       })
 
+    updateTime()
+
     commit('pushTweet', { newTweet })
   }
+}
+
+const updateTime = () => {
+  auth
+    .auth()
+    .then(user => {
+      return user.uid
+    })
+    .then(uid => {
+      db.collection('users')
+        .doc(uid)
+        .update({
+          update_at: FieldValue.serverTimestamp()
+        })
+    })
 }
