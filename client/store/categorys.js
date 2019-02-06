@@ -53,7 +53,7 @@ export const actions = {
             snapshot.forEach(doc => {
               payload.push(doc.data())
             })
-            return payload
+            return payload.sort((a, b) => a.id - b.id)
           })
           .then(payload => {
             commit('setCategorys', payload)
