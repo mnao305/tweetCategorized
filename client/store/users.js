@@ -21,19 +21,17 @@ export const mutations = {
 }
 
 export const actions = {
-  setUser({ commit, dispatch }, payload) {
-    const userID = payload.uid
-
+  setUser({ commit, dispatch }, { user, uid }) {
     db.collection('users')
-      .doc(userID)
+      .doc(uid)
       .get()
       .then(doc => {
         if (!doc.exists) {
           db.collection('users')
-            .doc(userID)
+            .doc(uid)
             .set(
               {
-                userID: userID,
+                userID: user.uid,
                 created_at: new Date()
               },
               { merge: true }
@@ -45,15 +43,14 @@ export const actions = {
               console.error('Error adding document: ', error)
             })
         } else {
-          const data = doc.data().userID
-          dispatch('categorys/setCategorys', data, { root: true })
+          dispatch('categorys/setCategorys', null, { root: true })
         }
       })
       .catch(error => {
         console.log('Error getting document:', error)
       })
 
-    commit('setUser', payload)
+    commit('setUser', user)
   },
   logout({ commit }) {
     commit('logout')

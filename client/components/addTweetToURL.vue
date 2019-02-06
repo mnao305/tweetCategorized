@@ -130,7 +130,7 @@ export default {
         const tweetID = this.URL.split('/')[5]
         const newTweet = {
           id: tweetID,
-          description: this.description
+          description: this.description ? this.description : ''
         }
 
         await this.addTweet({ newTweet })

@@ -1,4 +1,5 @@
 import { db, FieldValue } from '~/plugins/firestore'
+import auth from '~/plugins/auth'
 
 export const state = () => ({
   flag: true,
@@ -36,42 +37,70 @@ export const mutations = {
 }
 
 export const actions = {
-  async setCategorys({ commit }, id) {
-    const payload = []
-    await db
-      .collection('users')
-      .doc(id)
-      .collection('categorys')
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          payload.push(doc.data())
-        })
+  setCategorys({ commit }) {
+    auth
+      .auth()
+      .then(user => {
+        return user.uid
       })
-      .catch(err => {
-        console.log('Error getting documents', err)
+      .then(uid => {
+        const payload = []
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(doc => {
+              payload.push(doc.data())
+            })
+            return payload
+          })
+          .then(payload => {
+            commit('setCategorys', payload)
+          })
+          .catch(err => {
+            console.log('Error getting documents', err)
+          })
       })
-    commit('setCategorys', payload)
   },
-  newCategory({ commit, rootState }, { payload }) {
+  async newCategory({ commit }, { payload }) {
     const ID = payload.id
-    db.collection('users')
-      .doc(rootState.users.user.uid)
-      .collection('categorys')
-      .doc(ID)
-      .set(payload)
+
+    auth
+      .auth()
+      .then(user => {
+        return user.uid
+      })
+      .then(uid => {
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .doc(ID)
+          .set(payload)
+      })
 
     commit('pushCategory', { payload })
   },
-  async addTweet({ commit, rootState, state }, { newTweet }) {
-    await db
-      .collection('users')
-      .doc(rootState.users.user.uid)
-      .collection('categorys')
-      .doc(state.fromCategory)
-      .update({
-        tweets: FieldValue.arrayUnion(newTweet)
+  async addTweet({ commit, state }, { newTweet }) {
+    const categoryID = state.fromCategory
+    console.log(categoryID)
+    console.log(newTweet)
+
+    auth
+      .auth()
+      .then(user => {
+        return user.uid
       })
+      .then(uid => {
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .doc(categoryID)
+          .update({
+            tweets: FieldValue.arrayUnion(newTweet)
+          })
+      })
+
     commit('pushTweet', { newTweet })
   }
 }

@@ -37,7 +37,9 @@ export default {
         .login()
         .then(result => {
           const user = result.user.providerData[0]
-          this.setUser(user)
+          const uid = result.user.uid
+
+          this.setUser({ user, uid })
           this.$router.push('/dashboard/')
         })
         .catch(error => {
