@@ -1,5 +1,5 @@
-import firebase from '~/plugins/firebase'
-const db = firebase.firestore()
+import { db, FieldValue } from '~/plugins/firestore'
+import auth from '~/plugins/auth'
 
 export const state = () => ({
   user: null
@@ -32,7 +32,7 @@ export const actions = {
             .set(
               {
                 userID: user.uid,
-                created_at: new Date()
+                created_at: FieldValue.serverTimestamp()
               },
               { merge: true }
             )
@@ -55,6 +55,6 @@ export const actions = {
   logout({ commit }) {
     commit('logout')
     commit('categorys/clearCategorys', null, { root: true })
-    firebase.auth().signOut()
+    auth.logout()
   }
 }
