@@ -89,8 +89,6 @@ export const actions = {
   },
   async addTweet({ commit, state }, { newTweet }) {
     const categoryID = state.fromCategory
-    console.log(categoryID)
-    console.log(newTweet)
     const date = new Date()
     newTweet.created_at = date
 
