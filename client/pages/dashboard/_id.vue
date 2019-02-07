@@ -11,7 +11,7 @@
         :key="tweet.id"
         class="item">
         <v-card>
-          <Tweet :id="tweet.id" />
+          <Tweet :id="tweet.tweetID" />
           <v-card-text>
             <span v-if="edit !== tweet.id">{{ tweet.description }}</span>
             <v-textarea

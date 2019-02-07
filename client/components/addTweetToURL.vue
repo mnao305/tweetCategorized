@@ -128,8 +128,15 @@ export default {
     async addTweetSubmit() {
       if (this.$refs.addTweetForm.validate()) {
         const tweetID = this.URL.split('/')[5]
+        const len = this.categorys[this.toCategory].tweets.length
+
+        const nextID =
+          len > 0
+            ? Number(this.categorys[this.toCategory].tweets[len - 1].id) + 1
+            : 0
         const newTweet = {
-          id: tweetID,
+          id: `${nextID}`,
+          tweetID: tweetID,
           description: this.description ? this.description : ''
         }
 
