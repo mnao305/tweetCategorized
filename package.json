@@ -19,6 +19,7 @@
     "express": "^4.16.3",
     "firebase": "^5.7.3",
     "nuxt": "^2.0.0",
+    "twitter": "^1.7.1",
     "vue-masonry": "^0.11.7",
     "vue-tweet-embed": "^2.1.2",
     "vuetify": "^1.2.4",
