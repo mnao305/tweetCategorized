@@ -65,7 +65,8 @@ export const actions = {
   },
   async newCategory({ commit }, { payload }) {
     const ID = payload.id
-    payload.created_at = FieldValue.serverTimestamp()
+    const date = new Date()
+    payload.created_at = date
 
     auth
       .auth()
@@ -80,7 +81,7 @@ export const actions = {
           .set(payload)
       })
 
-    updateTime()
+    updateTime(date)
 
     commit('pushCategory', { payload })
   },
@@ -88,6 +89,8 @@ export const actions = {
     const categoryID = state.fromCategory
     console.log(categoryID)
     console.log(newTweet)
+    const date = new Date()
+    newTweet.created_at = date
 
     auth
       .auth()
@@ -104,13 +107,13 @@ export const actions = {
           })
       })
 
-    updateTime()
+    updateTime(date)
 
     commit('pushTweet', { newTweet })
   }
 }
 
-const updateTime = () => {
+const updateTime = date => {
   auth
     .auth()
     .then(user => {
@@ -120,7 +123,7 @@ const updateTime = () => {
       db.collection('users')
         .doc(uid)
         .update({
-          update_at: FieldValue.serverTimestamp()
+          update_at: date
         })
     })
 }
