@@ -51,7 +51,9 @@ export const actions = {
           .get()
           .then(snapshot => {
             snapshot.forEach(doc => {
-              payload.push(doc.data())
+              const data = doc.data()
+              data.created_at = data.created_at.toDate()
+              payload.push(data)
             })
             return payload.sort((a, b) => a.id - b.id)
           })
