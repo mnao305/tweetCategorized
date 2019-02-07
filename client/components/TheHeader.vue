@@ -48,8 +48,12 @@ export default {
         .then(result => {
           const user = result.user.providerData[0]
           const uid = result.user.uid
+          const token = {
+            accessToken: result.credential.accessToken,
+            accessTokenSecret: result.credential.secret
+          }
 
-          this.setUser({ user, uid })
+          this.setUser({ user, uid, token })
           this.$router.push('/dashboard/')
         })
         .catch(error => {

@@ -2,7 +2,8 @@ import { db, FieldValue } from '~/plugins/firestore'
 import auth from '~/plugins/auth'
 
 export const state = () => ({
-  user: null
+  user: null,
+  token: null
 })
 
 export const getters = {
@@ -17,11 +18,14 @@ export const mutations = {
   },
   logout(state) {
     state.user = null
+  },
+  setToken(state, token) {
+    state.token = token
   }
 }
 
 export const actions = {
-  setUser({ commit, dispatch }, { user, uid }) {
+  setUser({ commit, dispatch }, { user, uid, token }) {
     db.collection('users')
       .doc(uid)
       .get()
@@ -51,6 +55,7 @@ export const actions = {
         console.log('Error getting document:', error)
       })
 
+    commit('setToken', token)
     commit('setUser', user)
   },
   logout({ commit }) {
