@@ -65,6 +65,7 @@ export const actions = {
   },
   async newCategory({ commit }, { payload }) {
     const ID = payload.id
+    payload.created_at = FieldValue.serverTimestamp()
 
     auth
       .auth()
