@@ -18,6 +18,7 @@ export const mutations = {
   },
   logout(state) {
     state.user = null
+    state.token = null
   },
   setToken(state, token) {
     state.token = token

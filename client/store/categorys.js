@@ -30,6 +30,9 @@ export const mutations = {
   },
   clearCategorys(state) {
     state.categorys = []
+    state.flag = true
+    state.addTweetFlag = false
+    state.fromCategory = null
   },
   pushTweet(state, { newTweet }) {
     state.categorys[state.fromCategory].tweets.push(newTweet)

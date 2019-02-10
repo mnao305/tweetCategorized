@@ -11,6 +11,7 @@ export default {
   async mounted() {
     auth.auth().then(user => {
       if (!user) {
+        this.$store.dispatch('users/logout')
         this.$router.push('/')
       }
     })
