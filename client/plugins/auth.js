@@ -9,9 +9,14 @@ const auth = {
     return new Promise((resolve, reject) => {
       firebase
         .auth()
-        .signInWithPopup(provider)
-        .then(result => resolve(result))
-        .catch(error => reject(error))
+        .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(() => {
+          firebase
+            .auth()
+            .signInWithPopup(provider)
+            .then(result => resolve(result))
+            .catch(error => reject(error))
+        })
     })
   },
   // サインアウト
