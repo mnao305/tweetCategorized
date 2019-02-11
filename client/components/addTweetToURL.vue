@@ -14,6 +14,7 @@
         lazy-validation
       >
         <v-card-text>
+          <p>※非公開アカウントのツイートは追加できません。</p>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
@@ -49,7 +50,7 @@
           <v-spacer/>
 
           <v-btn
-            @click="$store.commit('categorys/toggleAddTweetFlag', !$store.state.categorys.addTweetFlag);"
+            @click="flag = false"
           >
             Close
           </v-btn>
@@ -83,7 +84,6 @@ export default {
   },
   data() {
     return {
-      URL: '',
       description: '',
       addTweetValid: true,
       tweetCheckFlag: true,
@@ -111,6 +111,9 @@ export default {
         return this.$store.state.categorys.addTweetFlag
       },
       set(val) {
+        this.$store.commit('categorys/clearTweetURL')
+        this.description = ''
+        this.$refs.addTweetForm.resetValidation()
         this.$store.commit('categorys/toggleAddTweetFlag', val)
       }
     },
@@ -120,6 +123,14 @@ export default {
       },
       set(fromCategory) {
         this.$store.commit('categorys/changeFromCatagory', fromCategory)
+      }
+    },
+    URL: {
+      get() {
+        return this.$store.state.categorys.tweetURL
+      },
+      set(tweetURL) {
+        this.$store.commit('categorys/setTweetURL', tweetURL)
       }
     },
     ...mapGetters('categorys', ['categorys'])
@@ -142,7 +153,9 @@ export default {
 
         await this.addTweet({ newTweet })
         this.flag = false
-        this.$refs.addTweetForm.reset()
+        this.$store.commit('categorys/clearTweetURL')
+        this.description = ''
+        this.$refs.addTweetForm.resetValidation()
         // 追加すると表示が崩れるのでMasonry再draw
         setTimeout(() => {
           this.$redrawVueMasonry()

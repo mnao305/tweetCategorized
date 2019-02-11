@@ -5,7 +5,8 @@ export const state = () => ({
   flag: true,
   addTweetFlag: false,
   fromCategory: null,
-  categorys: []
+  categorys: [],
+  tweetURL: null
 })
 
 export const getters = {
@@ -36,6 +37,12 @@ export const mutations = {
   },
   pushTweet(state, { newTweet }) {
     state.categorys[state.fromCategory].tweets.push(newTweet)
+  },
+  setTweetURL(state, tweetURL) {
+    state.tweetURL = tweetURL
+  },
+  clearTweetURL(state) {
+    state.tweetURL = null
   }
 }
 
