@@ -65,9 +65,7 @@ module.exports = {
     DATABASE_URL: process.env.DATABASE_URL,
     PROJECT_ID: process.env.PROJECT_ID,
     STORAGE_BUCKET: process.env.STORAGE_BUCKET,
-    MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
-    TWITTER_TOKEN: process.env.TWITTER_TOKEN,
-    TWITTER_SECRET: process.env.TWITTER_SECRET
+    MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID
   },
 
   /*
