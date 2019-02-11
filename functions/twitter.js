@@ -28,7 +28,10 @@ router.get('/getfav', (req, res) => {
           for (let i = 0; i < data.length; i++) {
             // 鍵垢のツイートは除外する
             if (!data[i].user.protected) {
-              favTweets.push(data[i].id_str)
+              const obj = {}
+              obj.id_str = data[i].id_str
+              obj.user = data[i].user.screen_name
+              favTweets.push(obj)
             }
           }
           res.send(favTweets)
