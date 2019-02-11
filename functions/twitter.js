@@ -24,7 +24,14 @@ router.get('/getfav', (req, res) => {
           access_token_secret: req.header('accessTokenSecret')
         })
         twitter.get('favorites/list', { count: 100 }, (_, data) => {
-          res.send(data)
+          const favTweets = []
+          for (let i = 0; i < data.length; i++) {
+            // 鍵垢のツイートは除外する
+            if (!data[i].user.protected) {
+              favTweets.push(data[i].id_str)
+            }
+          }
+          res.send(favTweets)
         })
       })
       .catch(() => {
