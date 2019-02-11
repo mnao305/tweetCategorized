@@ -1,5 +1,4 @@
 import firebase from '~/plugins/firebase'
-import 'firebase/auth'
 
 const provider = new firebase.auth.TwitterAuthProvider()
 
