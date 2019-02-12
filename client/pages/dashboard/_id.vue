@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h3>{{ categorys[$route.params.id].title }}</h3>
+    <p v-if="categorys[$route.params.id].description">{{ categorys[$route.params.id].description }}</p>
     <v-layout
       v-masonry
       transition-duration="0s"
