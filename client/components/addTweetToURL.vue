@@ -90,7 +90,7 @@ export default {
       duplicate: false,
       URLRules: [
         v => !!v || 'URL is required',
-        v => (v && v.length <= 100) || 'URL must be less than 70 characters',
+        v => (v && v.length <= 100) || 'URL must be less than 100 characters',
         v =>
           (v &&
             RegExp('^https://twitter.com/[a-z0-9_]+/status/[0-9]+$', 'i').test(
@@ -101,7 +101,7 @@ export default {
       ],
       descriptionRules: [
         v =>
-          `${v}`.length <= 100 || 'Description must be less than 30 characters'
+          `${v}`.length <= 100 || 'Description must be less than 100 characters'
       ]
     }
   },
