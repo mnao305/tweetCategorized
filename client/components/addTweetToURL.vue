@@ -174,7 +174,7 @@ export default {
       if (this.toCategory != null) {
         let tweet = this.categorys[this.toCategory].tweets
         for (let i = 0; i < tweet.length; i++) {
-          if (e.split('/')[5] === tweet[i].id) {
+          if (e.split('/')[5] === tweet[i].tweetID) {
             return false
           }
         }
