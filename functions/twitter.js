@@ -23,7 +23,7 @@ router.get('/getfav', (req, res) => {
           access_token: req.header('accessToken'),
           access_token_secret: req.header('accessTokenSecret')
         })
-        twitter.get('favorites/list', { count: 100 }, (_, data) => {
+        twitter.get('favorites/list', { count: 50 }, (_, data) => {
           const favTweets = []
           for (let i = 0; i < data.length; i++) {
             // 鍵垢のツイートは除外する
