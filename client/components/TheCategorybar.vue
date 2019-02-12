@@ -86,6 +86,9 @@ export default {
       }
     },
     ...mapGetters('categorys', ['categorys'])
+  },
+  mounted() {
+    this.$store.dispatch('categorys/setCategorys')
   }
 }
 </script>
