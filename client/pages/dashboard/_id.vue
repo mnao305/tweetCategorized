@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3>{{ categorys[$route.params.id].title }}</h3>
-    <p v-if="categorys[$route.params.id].description">{{ categorys[$route.params.id].description }}</p>
+    <h3>{{ category.title }}</h3>
+    <p v-if="category.description">{{ category.description }}</p>
     <v-layout
       v-masonry
       transition-duration="0s"
@@ -9,7 +9,7 @@
       class="masonry-container">
       <v-flex
         v-masonry-tile
-        v-for="tweet in categorys[$route.params.id].tweets"
+        v-for="tweet in category.tweets"
         :key="tweet.id"
         class="item">
         <v-card>
@@ -64,13 +64,19 @@ export default {
   },
   data() {
     return {
-      edit: null
+      edit: null,
+      category: []
     }
   },
   computed: {
     ...mapGetters('categorys', ['categorys'])
   },
   mounted() {
+    this.category = this.categorys.filter((item, index) => {
+      if (item.id === this.$route.params.id) return true
+    })[0]
+    console.log(this.category)
+
     // 一回だけじゃ上手くいかないことがあったのでそれ用の対応
     let loadFlag = 0
     const intervalID = setInterval(() => {
