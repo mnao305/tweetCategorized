@@ -43,6 +43,11 @@ export const mutations = {
   },
   clearTweetURL(state) {
     state.tweetURL = null
+  },
+  categoryDelete(state, id) {
+    state.categorys.some((v, i) => {
+      if (v.id === id) state.categorys.splice(i, 1)
+    })
   }
 }
 
@@ -120,6 +125,25 @@ export const actions = {
     updateTime(date)
 
     commit('pushTweet', { newTweet })
+  },
+  categoryDelete({ commit }, id) {
+    auth
+      .auth()
+      .then(user => {
+        return user.uid
+      })
+      .then(uid => {
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .doc(id)
+          .delete()
+          .then(() => {})
+          .catch(e => {
+            console.log(e)
+          })
+      })
+    commit('categoryDelete', id)
   }
 }
 

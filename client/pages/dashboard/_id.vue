@@ -1,7 +1,17 @@
 <template>
   <div>
-    <h3>{{ category.title }}</h3>
+    <v-layout style="position:relative">
+      <h3 id="categoryTitle">{{ category.title }}</h3>
+      <v-spacer/>
+      <v-btn
+        color="warning"
+        small
+        @click="categoryDelete()">
+        delete
+      </v-btn>
+    </v-layout>
     <p v-if="category.description">{{ category.description }}</p>
+
     <v-layout
       v-masonry
       transition-duration="0s"
@@ -94,6 +104,9 @@ export default {
       setTimeout(() => {
         this.$redrawVueMasonry()
       }, 100)
+    },
+    categoryDelete() {
+      this.$store.dispatch('categorys/categoryDelete', this.$route.params.id)
     }
   }
 }
@@ -103,5 +116,11 @@ export default {
 .item {
   width: 280px;
   padding: 0 5px;
+}
+
+#categoryTitle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>
