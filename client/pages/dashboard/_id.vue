@@ -107,6 +107,7 @@ export default {
     },
     categoryDelete() {
       this.$store.dispatch('categorys/categoryDelete', this.$route.params.id)
+      this.$router.push('/dashboard/')
     }
   }
 }
