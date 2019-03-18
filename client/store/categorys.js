@@ -35,8 +35,8 @@ export const mutations = {
     state.addTweetFlag = false
     state.fromCategory = null
   },
-  pushTweet(state, { newTweet }) {
-    state.categorys[state.fromCategory].tweets.push(newTweet)
+  pushTweet(state, { newTweet, index }) {
+    state.categorys[index].tweets.push(newTweet)
   },
   setTweetURL(state, tweetURL) {
     state.tweetURL = tweetURL
@@ -102,7 +102,7 @@ export const actions = {
 
     commit('pushCategory', { payload })
   },
-  async addTweet({ commit, state }, { newTweet }) {
+  async addTweet({ commit, state }, { newTweet, index }) {
     const categoryID = state.fromCategory
     const date = new Date()
     newTweet.created_at = date
@@ -124,7 +124,7 @@ export const actions = {
 
     updateTime(date)
 
-    commit('pushTweet', { newTweet })
+    commit('pushTweet', { newTweet, index })
   },
   categoryDelete({ commit }, id) {
     auth

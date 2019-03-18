@@ -138,20 +138,21 @@ export default {
   methods: {
     async addTweetSubmit() {
       if (this.$refs.addTweetForm.validate()) {
+        const index = this.categorys.findIndex(item => {
+          return item.id === this.toCategory
+        })
         const tweetID = this.URL.split('/')[5]
-        const len = this.categorys[this.toCategory].tweets.length
+        const len = this.categorys[index].tweets.length
 
         const nextID =
-          len > 0
-            ? Number(this.categorys[this.toCategory].tweets[len - 1].id) + 1
-            : 0
+          len > 0 ? Number(this.categorys[index].tweets[len - 1].id) + 1 : 0
         const newTweet = {
           id: `${nextID}`,
           tweetID: tweetID,
           description: this.description ? this.description : ''
         }
 
-        await this.addTweet({ newTweet })
+        await this.addTweet({ newTweet, index })
         this.flag = false
         this.$store.commit('categorys/clearTweetURL')
         this.description = ''
@@ -172,7 +173,10 @@ export default {
     },
     duplicateCheck(e) {
       if (this.toCategory != null) {
-        let tweet = this.categorys[this.toCategory].tweets
+        const index = this.categorys.findIndex(item => {
+          return item.id === this.toCategory
+        })
+        const tweet = this.categorys[index].tweets
         for (let i = 0; i < tweet.length; i++) {
           if (e.split('/')[5] === tweet[i].tweetID) {
             return false
