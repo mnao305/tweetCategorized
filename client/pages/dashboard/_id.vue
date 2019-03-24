@@ -40,7 +40,8 @@
             </v-btn>
             <v-btn
               v-if="edit !== tweet.id"
-              color="warning">
+              color="warning"
+              @click="tweetDelete(tweet.id)">
               Delete
             </v-btn>
             <v-btn
@@ -124,6 +125,10 @@ export default {
         description
       })
       this.edit = null
+    },
+    tweetDelete(id) {
+      const categoryID = this.$route.params.id
+      this.$store.dispatch('categorys/tweetDelete', { categoryID, id })
     }
   }
 }

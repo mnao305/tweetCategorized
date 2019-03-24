@@ -1,4 +1,4 @@
-import { db } from '~/plugins/firestore'
+import { db, FieldValue } from '~/plugins/firestore'
 import auth from '~/plugins/auth'
 import Vue from 'vue'
 
@@ -57,6 +57,9 @@ export const mutations = {
     })
 
     state.categorys[categoryIndex].tweets[id].description = description
+  },
+  tweetDelete(state, { categoryID, id }) {
+    Vue.delete(state.categorys[categoryID].tweets, id)
   }
 }
 
@@ -175,6 +178,24 @@ export const actions = {
           .update(edit)
       })
     commit('updateTweetDescription', { categoryID, id, description })
+  },
+  tweetDelete({ commit }, { categoryID, id }) {
+    auth
+      .auth()
+      .then(user => {
+        return user.uid
+      })
+      .then(uid => {
+        const edit = {}
+        edit[`tweets.${id}`] = FieldValue.delete()
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .doc(categoryID)
+          .update(edit)
+
+        commit('tweetDelete', { categoryID, id })
+      })
   }
 }
 
