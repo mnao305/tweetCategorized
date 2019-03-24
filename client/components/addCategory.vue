@@ -91,7 +91,8 @@ export default {
           id: `${nextID}`,
           title: this.title,
           description: this.description ? this.description : '',
-          tweets: []
+          tweets: {},
+          lastID: -1
         }
 
         await this.newCategory({ payload })

@@ -1,5 +1,6 @@
-import { db, FieldValue } from '~/plugins/firestore'
+import { db } from '~/plugins/firestore'
 import auth from '~/plugins/auth'
+import Vue from 'vue'
 
 export const state = () => ({
   flag: true,
@@ -36,7 +37,8 @@ export const mutations = {
     state.fromCategory = null
   },
   pushTweet(state, { newTweet, index }) {
-    state.categorys[index].tweets.push(newTweet)
+    Vue.set(state.categorys[index].tweets, newTweet.id, newTweet)
+    state.categorys[index].lastID++
   },
   setTweetURL(state, tweetURL) {
     state.tweetURL = tweetURL
@@ -106,6 +108,8 @@ export const actions = {
     const categoryID = state.fromCategory
     const date = new Date()
     newTweet.created_at = date
+    const edit = {}
+    edit[`tweets.${newTweet.id}`] = newTweet
 
     auth
       .auth()
@@ -117,14 +121,17 @@ export const actions = {
           .doc(uid)
           .collection('categorys')
           .doc(categoryID)
-          .update({
-            tweets: FieldValue.arrayUnion(newTweet)
-          })
+          .update(edit)
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .doc(categoryID)
+          .update({ lastID: state.categorys[index].lastID + 1 })
+
+        updateTime(date)
+        commit('pushTweet', { newTweet, index })
       })
-
-    updateTime(date)
-
-    commit('pushTweet', { newTweet, index })
+      .catch(e => {})
   },
   categoryDelete({ commit }, id) {
     auth

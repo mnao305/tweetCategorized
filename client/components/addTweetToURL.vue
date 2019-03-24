@@ -142,10 +142,9 @@ export default {
           return item.id === this.toCategory
         })
         const tweetID = this.URL.split('/')[5]
-        const len = this.categorys[index].tweets.length
 
-        const nextID =
-          len > 0 ? Number(this.categorys[index].tweets[len - 1].id) + 1 : 0
+        const nextID = this.categorys[index].lastID + 1
+
         const newTweet = {
           id: `${nextID}`,
           tweetID: tweetID,
@@ -177,7 +176,7 @@ export default {
           return item.id === this.toCategory
         })
         const tweet = this.categorys[index].tweets
-        for (let i = 0; i < tweet.length; i++) {
+        for (let i = 0; i < Object.keys(tweet).length; i++) {
           if (e.split('/')[5] === tweet[i].tweetID) {
             return false
           }
