@@ -50,6 +50,13 @@ export const mutations = {
     state.categorys.some((v, i) => {
       if (v.id === id) state.categorys.splice(i, 1)
     })
+  },
+  updateTweetDescription(state, { categoryID, id, description }) {
+    const categoryIndex = state.categorys.findIndex(item => {
+      return item.id === categoryID
+    })
+
+    state.categorys[categoryIndex].tweets[id].description = description
   }
 }
 
@@ -151,6 +158,23 @@ export const actions = {
           })
       })
     commit('categoryDelete', id)
+  },
+  updateTweetDescription({ commit }, { categoryID, id, description }) {
+    auth
+      .auth()
+      .then(user => {
+        return user.uid
+      })
+      .then(uid => {
+        const edit = {}
+        edit[`tweets.${id}.description`] = description
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .doc(categoryID)
+          .update(edit)
+      })
+    commit('updateTweetDescription', { categoryID, id, description })
   }
 }
 

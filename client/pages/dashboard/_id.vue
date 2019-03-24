@@ -24,15 +24,18 @@
         class="item">
         <v-card>
           <Tweet :id="tweet.tweetID" />
-          <v-card-text>
+          <v-card-actions>
             <span v-if="edit !== tweet.id">{{ tweet.description }}</span>
             <v-textarea
               v-else
-              :value="tweet.description" />
-          </v-card-text>
+              v-model="edetDescription"
+              auto-grow
+              rows="0"
+              counter="100" />
+          </v-card-actions>
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="editMode(tweet.id)">
+            <v-btn @click="editMode(tweet.id, tweet.description)">
               {{ edit !== tweet.id ? 'Edit' : 'Cancel' }}
             </v-btn>
             <v-btn
@@ -42,7 +45,8 @@
             </v-btn>
             <v-btn
               v-else
-              color="success">
+              color="success"
+              @click="saveEdit(tweet.id)">
               Save
             </v-btn>
           </v-card-actions>
@@ -75,7 +79,8 @@ export default {
   data() {
     return {
       edit: null,
-      category: []
+      category: [],
+      edetDescription: ''
     }
   },
   computed: {
@@ -99,8 +104,9 @@ export default {
     }, 500)
   },
   methods: {
-    editMode(index) {
+    editMode(index, description) {
       this.edit = this.edit !== index ? index : null
+      this.edetDescription = description
       setTimeout(() => {
         this.$redrawVueMasonry()
       }, 100)
@@ -108,6 +114,16 @@ export default {
     categoryDelete() {
       this.$store.dispatch('categorys/categoryDelete', this.$route.params.id)
       this.$router.push('/dashboard/')
+    },
+    saveEdit(id) {
+      const categoryID = this.$route.params.id
+      const description = this.edetDescription
+      this.$store.dispatch('categorys/updateTweetDescription', {
+        categoryID,
+        id,
+        description
+      })
+      this.edit = null
     }
   }
 }
