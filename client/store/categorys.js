@@ -7,7 +7,8 @@ export const state = () => ({
   addTweetFlag: false,
   fromCategory: null,
   categorys: [],
-  tweetURL: null
+  tweetURL: null,
+  categoryEditFlag: false
 })
 
 export const getters = {
@@ -60,6 +61,13 @@ export const mutations = {
   },
   tweetDelete(state, { categoryID, id }) {
     Vue.delete(state.categorys[categoryID].tweets, id)
+  },
+  toggleCategoryEditFlag(state, val) {
+    state.categoryEditFlag = val
+  },
+  editCategory(state, { index, title, description }) {
+    state.categorys[index].title = title
+    state.categorys[index].description = description
   }
 }
 
@@ -195,6 +203,25 @@ export const actions = {
           .update(edit)
 
         commit('tweetDelete', { categoryID, id })
+      })
+  },
+  editCategory({ commit }, { index, id, title, description }) {
+    auth
+      .auth()
+      .then(user => {
+        return user.uid
+      })
+      .then(uid => {
+        db.collection('users')
+          .doc(uid)
+          .collection('categorys')
+          .doc(id)
+          .update({
+            title: title,
+            description: description
+          })
+
+        commit('editCategory', { index, id, title, description })
       })
   }
 }

@@ -3,12 +3,26 @@
     <v-layout style="position:relative">
       <h3 id="categoryTitle">{{ category.title }}</h3>
       <v-spacer/>
-      <v-btn
-        color="warning"
-        small
-        @click="categoryDelete()">
-        delete
-      </v-btn>
+      <v-menu
+        open-on-hover
+        bottom
+        left>
+        <v-btn
+          slot="activator"
+          icon>
+          <v-icon>settings</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile @click="categoryEditFlag = true">
+            <v-list-tile-title>Edit</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile
+            color="warning"
+            @click="categoryDelete()">
+            <v-list-tile-title>Delete</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-layout>
     <p v-if="category.description">{{ category.description }}</p>
 
@@ -54,16 +68,19 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <category-edit />
   </div>
 </template>
 
 <script>
 import { Tweet } from 'vue-tweet-embed'
 import { mapGetters } from 'vuex'
+import categoryEdit from '~/components/categoryEdit.vue'
 
 export default {
   components: {
-    Tweet
+    Tweet,
+    categoryEdit
   },
   async asyncData({ store, route, redirect }) {
     const { id } = route.params
@@ -85,6 +102,14 @@ export default {
     }
   },
   computed: {
+    categoryEditFlag: {
+      get() {
+        return this.$store.state.categorys.categoryEditFlag
+      },
+      set(val) {
+        this.$store.commit('categorys/toggleCategoryEditFlag', val)
+      }
+    },
     ...mapGetters('categorys', ['categorys'])
   },
   mounted() {
